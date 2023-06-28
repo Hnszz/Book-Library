@@ -1,0 +1,9 @@
+.container{
+     background-image : url('https://i.pinimg.com/564x/ff/b2/63/ffb263364242aa97574982fa1f5ba99a.jpg');
+     background-size:100%;
+     background-attachment: auto fixed;
+     background-position : 50% 100%;
+     background-size : 100% 100%;
+     height : 3200px;
+     color:white;
+     }

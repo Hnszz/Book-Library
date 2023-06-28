@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% if stories %}
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <td width="30%">Title</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            {% for (story_id, title, _) in stories %}
+            <tr>
+                
+                <td>
+                    <h4 style="color:white">{{ title }}</h4>
+                </td>
+                <td>
+                    <!-- notice here, in url_for, we have second parameter to accept -->
+                    <a class="btn btn-primary" href="{{ url_for('read', story_id=story_id) }}">Detail</a>
+
+                    <!-- only let logged in user see the edit and delete -->
+                    {% if session and session.get('username')%}
+                        <a class="btn btn-warning" href="{{ url_for('edit', story_id=story_id) }}">Edit</a>
+                        <button type="button" class="btn btn-danger" onclick="deleteStory({{ story_id }}, {{ '\"%s\"' % title }})">Delete</button>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <h1>No Stories Found</h1>
+        {% endif %}
+
+        <!-- create is only able for logged in users -->
+        {% if session and session.get('username') %}
+        <div>
+            <a class="btn btn-success" href="{{ url_for('create') }}">Create</a>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
